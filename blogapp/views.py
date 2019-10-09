@@ -1,10 +1,49 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core import serializers
+from django.contrib.auth import authenticate, logout, login
 import json
 
 from blogapp.models import Post, Comment
 # Create your views here.
+
+def signup(request):
+	if request.method == "POST":
+		username = request.POST.get("username")
+		password = request.POST.get("password")
+		email = request.POST.get("email")
+
+		user = User.objects.filter(username=username).exist()
+
+		if not user:
+			user = User.objects.create(username=username, 
+										password=password, 
+										email=email)
+			login(request, user)
+
+			return JsonResponse({"message":"User Created Successfully"})
+
+		return JsonResponse({"error_message":"User Already exists"}, status=403)
+
+	return JsonResponse({"error_message":f"{request.method} not allowed" }, status=403)
+
+
+def signin(request):
+	if request.method == "POST":
+		username = request.POST.get("username")
+		password = request.POST.get("password")
+
+		user = authenticate(username=username, password=password)
+
+		if user is not None:
+			login(request, user)
+
+			return JsonResponse({"message":"Successfully Loged in"})
+
+		return JsonResponse({"error_message":"User Does not exists"}, status=404)
+
+	return JsonResponse({"error_message":f"{request.method} not allowed" }, status=403)
+
 
 def post_to_dict(post_instance):
 	post_data = {}
