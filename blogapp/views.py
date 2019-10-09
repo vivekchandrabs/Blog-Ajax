@@ -4,7 +4,7 @@ from django.core import serializers
 from django.contrib.auth import authenticate, logout, login
 import json
 
-from blogapp.models import Post, Comment
+from blogapp.models import Post
 # Create your views here.
 
 def signup(request):
