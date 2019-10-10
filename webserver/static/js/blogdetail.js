@@ -14,18 +14,18 @@ $.ajax({
             <p><small> ${response.post.timestamp} </small></p>
             <p> ${response.post.content} </p>
         `);
-        for(let comment of response.comments){
-            // console.log(comment.post_id);
-            $("#comments").append(`
-                <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">${comment.content}</h5>
-                            <p class="card-text">${comment.timestamp}</p>
-                            <p class="card-text">${comment.author}</p>
-                    </div>
-                </div>
-            `);
-        };
+        // for(let comment of response.comments){
+        //     // console.log(comment.post_id);
+        //     $("#comments").append(`
+        //         <div class="card">
+        //                 <div class="card-body">
+        //                     <h5 class="card-title">${comment.content}</h5>
+        //                     <p class="card-text">${comment.timestamp}</p>
+        //                     <p class="card-text">${comment.author}</p>
+        //             </div>
+        //         </div>
+        //     `);
+        // };
     }
 });
 

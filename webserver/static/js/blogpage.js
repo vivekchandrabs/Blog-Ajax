@@ -12,7 +12,6 @@ $.ajax({
                             <h5 class="card-title">${post.title}</h5>
                             <p class="card-text">${post.content}</p>
                             <p class="card-text">${post.timestamp}</p>
-                            <a href="/blogdetail/?id=${post.id}" class="btn btn-primary">Read More</a>
                     </div>
                 </div>
             `);
