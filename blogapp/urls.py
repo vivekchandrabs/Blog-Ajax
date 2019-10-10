@@ -6,7 +6,7 @@ urlpatterns = [
 
    path("", home),
    
-   path("blog/", blogpage),
+   path("blog/", blogpage, name="blog"),
 
    path("login/",  signin),
    
