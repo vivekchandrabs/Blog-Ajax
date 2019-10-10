@@ -42,7 +42,7 @@ def signin(request):
 
 		return JsonResponse({"error_message":"User Does not exists"}, status=404)
 
-	return JsonResponse({"error_message":f"{request.method} not allowed" }, status=403)
+	return JsonResponse({"error_message":f"{request.method} not allowed" }, status=406)
 
 
 def post_to_dict(post_instance):
@@ -59,14 +59,19 @@ def get_all_posts(request):
 	return JsonResponse({"posts":list(all_posts)})
 
 def make_post(request):
-	title = request.POST.get("title")
-	content = request.POST.get("content")
+	if request.method == "POST":
+		title = request.POST.get("title")
+		content = request.POST.get("content")
 
-	post_instance = Post.objects.create(title=title,
-										content=content)
-	post_data = post_to_dict(post_instance)
+		post_instance = Post.objects.create(title=title,
+											content=content)
+		post_data = post_to_dict(post_instance)
 
-	return JsonResponse({"post":post_data})
+		return JsonResponse({"post":post_data})
+
+	return JsonResponse({"error_message":f"{request.method} not allowed" }, status=406)
+
+
 
 def delete_post(request, post_id):
 	post_instance = Post.objects.get(pk=post_id)
