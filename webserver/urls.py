@@ -1,10 +1,9 @@
 from django.urls import path
 
-from webserver.views import signin, signup, blogpage, blogdetail
+from webserver.views import signup, blogpage, blogdetail
 
 urlpatterns = [
    path("signup/", signup),
-   path("signin/", signin),
 
    path("", blogpage),
 
