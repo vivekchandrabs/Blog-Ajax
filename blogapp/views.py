@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core import serializers
 from django.contrib.auth import authenticate, logout, login
+from django.contrib.auth.models import User
 import json
 
 from blogapp.models import Post
@@ -13,7 +14,7 @@ def signup(request):
 		password = request.POST.get("password")
 		email = request.POST.get("email")
 
-		user = User.objects.filter(username=username).exist()
+		user = User.objects.filter(username=username).exists()
 
 		if not user:
 			user = User.objects.create(username=username, 

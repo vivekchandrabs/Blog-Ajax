@@ -8,5 +8,3 @@ def signup(request):
 def blogpage(request):
     return render(request, "blogpage.html")
 
-def blogdetail(request):
-    return render(request, "blogdetail.html")
