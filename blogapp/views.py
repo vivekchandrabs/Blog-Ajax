@@ -56,16 +56,24 @@ def post_to_dict(post_instance):
 	return post_data
 
 def get_all_posts(request):
-	all_posts = Post.objects.all().values()
-	return JsonResponse({"posts":list(all_posts)})
+	if request.method == "POST":
+		user = request.user
+		all_posts = Post.objects.filter(author=user).values()
+
+		return JsonResponse({"posts":list(all_posts)})
+
+	return JsonResponse({"error_message":f"{request.method} not allowed" }, status=406)
 
 def make_post(request):
 	if request.method == "POST":
 		title = request.POST.get("title")
 		content = request.POST.get("content")
+		print(request.user)
+		user = request.user
 
 		post_instance = Post.objects.create(title=title,
-											content=content)
+											content=content,
+											author=user)
 		post_data = post_to_dict(post_instance)
 
 		return JsonResponse({"post":post_data})
@@ -81,10 +89,13 @@ def delete_post(request, post_id):
 	return JsonResponse({"message":"Post Successfully deleted"})
 
 
+def signout(request):
+	logout(request)
+	return JsonResponse({"message":"Successfully logged out"})
 
 
+def home(request):
+    return render(request, "signup.html")
 
-
-
-
-
+def blogpage(request):
+    return render(request, "blogpage.html")
