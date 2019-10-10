@@ -14,12 +14,3 @@ class Post(models.Model):
 
 	def natural_key(self):
 		return {"id":self.pk, "title":self.title, "content":self.content}
-
-class Comment(models.Model):
-	post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True)
-	content = models.TextField(default=None)
-	timestamp = models.DateTimeField(auto_now_add=True)
-	author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-
-	def __str__(self):
-		return f"{self.post} | {self.content}"
